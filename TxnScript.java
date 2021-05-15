@@ -111,7 +111,7 @@ public class TxnScript
     }
 	
 
-    // cette fonction doit initialiser la structure (DDL) et les éventuels enregistrements au démarrage
+    // cette fonction doit initialiser la structure (DDL)
     public static boolean initDb()	
     {
 		// TO DO
