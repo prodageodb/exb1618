@@ -31,6 +31,7 @@ public class simplissimeCmdline {
             opt.addOption("nom", true, "nom de la ville" );
             opt.addOption("cp", true, "code postal de la ville" );
             opt.addOption("id", true, "identifiant de la ville" );
+            opt.addOption("base", true, "nom de la base (si absent, la base est par défaut ANNUAIRE" );
 			
             DefaultParser parser = new DefaultParser();
             CommandLine cl = parser.parse(opt, args);
@@ -42,10 +43,17 @@ public class simplissimeCmdline {
                 f.printHelp("Aide de simplissime", opt);
             }
 		
+	    String display = "" ;
 	    // Initialisation des bases
-
-			String display = "" ;
-			txn = TxnScript.getTxnScript() ;
+            if ( cl.hasOption('base') )
+	    {
+		String sBase = cl.getOptionValue("base") ;
+		txn = TxnScript.getTxnScript(sBase) ;
+	    }
+	    else
+	    {
+		txn = TxnScript.getTxnScript() ;
+	    }
 
 		
 	    // Traitement des options de la ligne de commandes
