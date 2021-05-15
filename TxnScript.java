@@ -47,7 +47,7 @@ public class TxnScript
 	private static Connection theCnx = null ;
 
 	// le constructeur de TxnScript établit la connexion
-    private TxnScript ()
+        private TxnScript ()
 	{
 		boolean dbAbsent = true ;
 
@@ -106,6 +106,8 @@ public class TxnScript
 		}
     }
 
+    // permet aux classes clientes d'obtenir une référence vers un TxnScript pour appeler toutes les fonctions
+    // pour mémoire, le constructeur de TxnScript est privé => les fonctions des classes clientes ne peuvent le construire.
     public static TxnScript getTxnScript() {
         return new TxnScript();
     }
@@ -194,7 +196,13 @@ public class TxnScript
     }
 
     /*************** ITERATEUR AVEC LA TABLE VILLES ***************/
-
+    // C'est une mise en oeuvre (implementation) très simple (dégradée) du pattern Iterator
+    // Les limitations sont les suivantes
+    // pas d'interface, pas de fonction next() mais des accesseurs (getters comme nextIdVille, nextCodePostalVille, ...) pour accéder à chaque champ d'une ville.
+    // On peut trouver quelques indications sur : http://mrbool.com/design-patterns-iterator-in-java/26738
+    // Pour information, pour une description complète du pattern Iterator, on peut consulter
+    // https://refactoring.guru/fr/design-patterns/iterator
+	
 	public class VillesIterator
 	{
 		PreparedStatement monTraitement ;
@@ -291,7 +299,7 @@ public class TxnScript
 	
 	
     // insére un enregistrement dans la table Ville
-	// renvoie l'id
+    // renvoie l'id
     public static Integer insertVille (String nom, Integer codePostal)
     {
 		// TO DO		
@@ -301,6 +309,7 @@ public class TxnScript
 
 	
     // recherche tous les enregistrements de la table Ville dont le code postal correspondant
+    // retour : un itérateur sur les enregistrements renvoyés par cette recherche
     public VillesIterator getIterator4searchByCodePostal(Integer searchedCodePostal)
     {
 		// TO DO		
@@ -312,7 +321,7 @@ public class TxnScript
 
 
 	// retirer (effacer) un enregistrement de la table, en fonction de l'id
-	// renvoyer false si aucun enregistrement n'est trouvé avec cet id
+	// // retour : renvoyer false si aucun enregistrement n'est trouvé avec cet id
     public boolean deleteVille(Integer id)
     {
 		boolean the_result = false ;
@@ -323,7 +332,8 @@ public class TxnScript
 		return the_result ;
     }
 
-
+    // recherche tous les enregistrements de la table Ville (sans aucun critère)
+    // retour : un itérateur sur les enregistrements renvoyés par cette recherche
     public VillesIterator getIterator4listerVilles()
     {
 		// TO DO
@@ -333,7 +343,8 @@ public class TxnScript
     }
 
 
-    // met à jour un enregistrement existant dans la table Ville : renvoie une chaine avec les valeurs intégrées dans la table	
+    // met à jour un enregistrement existant dans la table Ville
+    // retour : une chaine avec les valeurs intégrées dans la table	
     public static String updateVille (Integer id, String nom, Integer codePostal)
     {
         String the_result = "" ;
@@ -342,7 +353,8 @@ public class TxnScript
     }
 	
 
-    // clot la connection au SGBD et renvoie true si la fermeture s'est bien déroulée, false sinon
+    // clot la connection au SGBD
+    // retour : true si la fermeture s'est bien déroulée, false sinon
     private boolean close()
     {
 		boolean the_result = true ;
