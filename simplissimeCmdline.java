@@ -45,14 +45,14 @@ public class simplissimeCmdline {
 		
 	    String display = "" ;
 	    // Initialisation des bases
-            if ( cl.hasOption('base') )
+            if ( cl.hasOption("base") )
 	    {
-		String sBase = cl.getOptionValue("base") ;
-		txn = TxnScript.getTxnScript(sBase) ;
+			String sBase = cl.getOptionValue("base") ;
+			txn = TxnScript.getTxnScript(sBase) ;
 	    }
 	    else
 	    {
-		txn = TxnScript.getTxnScript() ;
+			txn = TxnScript.getTxnScript() ;
 	    }
 
 		
