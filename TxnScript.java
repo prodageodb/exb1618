@@ -132,7 +132,7 @@ public class TxnScript
 
 
 
-
+    // cette fonction doit charger quelques enregistrements dans la base pour pouvoir faire les tests
     public static boolean populateDb()	
     {
 		// TO DO
@@ -155,7 +155,8 @@ public class TxnScript
 
 
 	
-    // cette fonction doit retirer toute la structure de la base
+    // cette fonction doit retirer toute la structure de la base (effacer les contraintes, les tables avec leur champ)
+    // à la sortie, la base ne doit contenir aucune table
     public static  boolean eraseDb()	
     {
 		// TO DO
