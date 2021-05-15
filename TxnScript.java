@@ -34,7 +34,7 @@ public class TxnScript
 	// Variable générique
 	private static String jdbcUrl = "" ;
 	private static String jdbcMachine = "" ;
-	private static String jdbcDatabase = "" ;
+	private static String jdbcDefaultDatabase = "ANNUAIRE" ;
 	private static String jdbcUser = "" ;
 	private static String jdbcPass = "" ;
 	
@@ -47,14 +47,13 @@ public class TxnScript
 	private static Connection theCnx = null ;
 
 	// le constructeur de TxnScript établit la connexion
-        private TxnScript ()
+        private TxnScript (String jdbcDatabase)
 	{
 		boolean dbAbsent = true ;
 
 		// si MySQL
 		jdbcUrl = "" ;
 		jdbcMachine = jdbcMysqlMachine  ;
-		jdbcDatabase = "ANNUAIRE" ;
 		jdbcUser = jdbcMysqlUser ;
 		jdbcPass = jdbcMysqlPass ;
 
@@ -108,10 +107,14 @@ public class TxnScript
 
     // permet aux classes clientes d'obtenir une référence vers un TxnScript pour appeler toutes les fonctions
     // pour mémoire, le constructeur de TxnScript est privé => les fonctions des classes clientes ne peuvent le construire.
-    public static TxnScript getTxnScript() {
-        return new TxnScript();
+    public static TxnScript getTxnScript(String jdbcDatabase) {
+        return new TxnScript( jdbcDatabase );
     }
-	
+
+    public static TxnScript getTxnScript() {
+        return getTxnScript ( jdbcDefaultDatabase ) ;
+    }
+
 
     // cette fonction doit initialiser la structure (DDL)
     public static boolean initDb()	
